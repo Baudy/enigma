@@ -1,4 +1,5 @@
-
+import sys
+import random
 
 """ This sets up the allowed dictionary """
 allowed_chars = {
@@ -7,6 +8,11 @@ allowed_chars = {
     36:"A", 37:"B", 38:"C", 39:"D", 40:"E", 41:"F", 42:"G", 43:"H", 44:"I", 45:"J", 46:"K", 47:"L", 48:"M", 49:"N", 50:"O", 51:"P", 52:"Q", 53:"R", 54:"S", 55:"T", 56:"U", 57:"V", 58:"W", 59:"X", 60:"Y", 61:"Z",
     62:" ", 63:"."
 }
+
+""" This sets up the rotor seeds """
+rotorSeed1 = 23061912 # the Turing rotor
+rotorSeed2 = 22121905 # the Flowers rotor
+rotorSeed3 = 16081905 # the Rejewski rotor
 
 def validate_input(inputStr):
     """
@@ -24,8 +30,28 @@ def validate_input(inputStr):
     # test for this function:
     # print validate_input("I am at number 471")
 
+def create_rotor(randSeed):
+    """
+    This function returns a tuple of allowed characters,
+    randomly distributed using the seed provided as an argument.
+    """
+    random.seed(randSeed)
+    res = []
+    while len(res) < 64:
+        x = random.randint(0,63)
+        if x not in res:
+            res.append(x)
+    return res
+    # check that the randSeed is an integer and return an error if not
+
+    # create an empty dictionary with 0-63 as
+
 
 print("-------------------------")
 print("- Python Enigma - Pygma -")
 print("-------------------------")
 print("")
+
+print(create_rotor(rotorSeed1))
+print(create_rotor(rotorSeed2))
+print(create_rotor(rotorSeed3))
