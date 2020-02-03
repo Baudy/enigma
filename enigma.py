@@ -35,16 +35,16 @@ def create_rotor(randSeed):
     This function returns a tuple of allowed characters,
     randomly distributed using the seed provided as an argument.
     """
-    random.seed(randSeed)
+    random.seed(randSeed) # make sure the rotor setup can be reproduced
     res = []
-    while len(res) < 64:
+    ret = {}
+    while len(res) < 64: # create a list with randomised integers
         x = random.randint(0,63)
-        if x not in res:
+        if x not in res: # only add to the list if the value isn't already there
             res.append(x)
-    return res
-    # check that the randSeed is an integer and return an error if not
-
-    # create an empty dictionary with 0-63 as
+    for i in res: # for all of the 64 integrs, replace them with the allowed characters
+        ret[i] = allowed_chars[res[i]]
+    return ret
 
 
 print("-------------------------")
