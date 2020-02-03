@@ -25,7 +25,7 @@ def validate_input(inputStr):
     # print validate_input("I am at number 471")
 
 
-print("-----------------")
-print("- Python Enigma -")
-print("-----------------")
+print("-------------------------")
+print("- Python Enigma - Pygma -")
+print("-------------------------")
 print("")
