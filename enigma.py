@@ -13,6 +13,8 @@ allowed_chars = {
 rotorSeed1 = 23061912 # the Turing rotor
 rotorSeed2 = 22121905 # the Flowers rotor
 rotorSeed3 = 16081905 # the Rejewski rotor
+reflectorSeed1 = 30011974 # the Carey reflector
+reflectorSeed2 = 99041975 # the Codling reflector
 
 def validate_input(inputStr):
     """
@@ -38,13 +40,27 @@ def create_rotor(randSeed):
     random.seed(randSeed) # make sure the rotor setup can be reproduced
     res = []
     ret = {}
+    counter = 0
     while len(res) < 64: # create a list with randomised integers
         x = random.randint(0,63)
         if x not in res: # only add to the list if the value isn't already there
             res.append(x)
     for i in res: # for all of the 64 integrs, replace them with the allowed characters
-        ret[i] = allowed_chars[res[i]]
+        ret[allowed_chars[counter]] = allowed_chars[res[i]]
+        print(allowed_chars[counter] + " --- " + allowed_chars[res[i]])
+        print(ret)
+        counter += 1 # this needs to return pairs where the key is in the order of the allowed_chars
     return ret
+
+def create_reflector(randSeed):
+    """
+    This function returns a reflector with key pairs from the
+    allowed_chars list.  If 'i'='Z' then 'Z'='i'
+    """
+    # first create a rotor
+    seedRotor = create_rotor(randSeed)
+    # then fold the rotor up in half, making new key value pairs for each value pair
+    return randSeed
 
 
 print("-------------------------")
@@ -55,3 +71,5 @@ print("")
 print(create_rotor(rotorSeed1))
 print(create_rotor(rotorSeed2))
 print(create_rotor(rotorSeed3))
+print("---")
+print(create_reflector(reflectorSeed1))
