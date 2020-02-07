@@ -41,8 +41,8 @@ def create_rotor(randSeed):
     res = []
     ret = {}
     counter = 0
-    while len(res) < 64: # create a list with randomised integers
-        x = random.randint(0,63)
+    while len(res) < len(allowed_chars): # create a list with randomised integers
+        x = random.randint(0,len(allowed_chars)-1)
         if x not in res: # only add to the list if the value isn't already there
             res.append(x)
     for i in res: # for all of the 64 integrs, replace them with the allowed characters
