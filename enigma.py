@@ -16,6 +16,11 @@ rotorSeed3 = 16081905 # the Rejewski rotor
 reflectorSeed1 = 30011974 # the Carey reflector
 reflectorSeed2 = 99041975 # the Codling reflector
 
+r1_pos = 0
+r2_pos = 0
+r3_pos = 0
+
+
 def validate_input(inputStr):
     """
     This function validates the input against a list of allowed characters
@@ -38,17 +43,13 @@ def create_rotor(randSeed):
     randomly distributed using the seed provided as an argument.
     """
     random.seed(randSeed) # this ensures the rotor setup can be reproduced
-    res1 = [] # a temporary list holding a randomised list of integers
-    res2 = [] # a temporary list containing the allowed_char for each integer in res1
-    ret = () # an empty tuple which we'll populate with the contents of the res2 list and then return
-    counter = 0 # an empty counter
-    while len(res1) < len(allowed_chars): # create a list with randomised integers
-        x = random.randint(0,len(allowed_chars)-1)
-        if x not in res1: # only add to the list if the value isn't already there
-            res1.append(x)
-    for i in res1: # for all of the 64 integrs in res1, replace them with the allowed characters into res2
-        res2.append(allowed_chars.get(i))
-    ret = tuple(res2) # flip the list res2 into a tuple called ret
+    res = [] # a temporary list holding a randomised list of integers
+    ret = () # an empty tuple which we'll populate with the contents of the res list at the end
+    while len(res) < len(allowed_chars): # create a list with randomised integers
+        x = allowed_chars.get(random.randint(0,len(allowed_chars)-1))
+        if x not in res: # only add to the list if the value isn't already there
+            res.append(x)
+    ret = tuple(res) # flip the list res into a tuple called ret
     return ret
 
 def create_reflector(randSeed):
@@ -58,8 +59,16 @@ def create_reflector(randSeed):
     """
     # first create a rotor
     seedRotor = create_rotor(randSeed)
-    # then fold the rotor up in half, making new key value pairs for each value pair
-    return randSeed
+    res = {} # a disctionary we will populate with reflections
+    for x in seedRotor:
+        if x not in res.keys():
+            if seedRotor.index(x) < len(seedRotor)/2:
+                res[x] = seedRotor[seedRotor.index(x) + len(seedRotor)/2]
+                res[seedRotor[seedRotor.index(x) + len(seedRotor)/2]] = x
+    return res
+
+def reflect(reflector, char): # returns the reflected character
+    return reflector.get(char)
 
 
 print("-------------------------")
@@ -72,3 +81,5 @@ print(create_rotor(rotorSeed2))
 print(create_rotor(rotorSeed3))
 print("---")
 print(create_reflector(reflectorSeed1))
+
+x = create_reflector(reflectorSeed1)
