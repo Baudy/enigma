@@ -63,15 +63,16 @@ def create_reflector(randSeed):
     for x in seedRotor:
         if x not in res.keys():
             if seedRotor.index(x) < len(seedRotor)/2:
-                res[x] = seedRotor[seedRotor.index(x) + len(seedRotor)/2]
-                res[seedRotor[seedRotor.index(x) + len(seedRotor)/2]] = x
+                res[x] = seedRotor[int(seedRotor.index(x) + len(seedRotor)/2)]
+                res[seedRotor[int(seedRotor.index(x) + len(seedRotor)/2)]] = x
     return res
 
 def reflect(reflector, char): # returns the reflected character
     return reflector.get(char)
 
 def find_key(input_dict, value):
-    return input_dict.keys()[input_dict.values().index(value)]
+    # return input_dict.keys()[input_dict.values().index(value)]  # python 2
+    return list(input_dict.keys())[list(input_dict.values()).index(value)]
 
 def encode(char):
     n = find_key(allowed_chars, char)
@@ -91,7 +92,7 @@ def encode(char):
 print("-------------------------")
 print("- Python Enigma - Pygma -")
 print("-------------------------")
-print(sys.version)
+print(sys)
 print("")
 
 r1 = create_rotor(rotorSeed1)
@@ -103,6 +104,6 @@ print(r1)
 print(r2)
 print(r3)
 print("---")
-print(encode("7"))
-print(encode("K"))
+print(encode("d"))
+print(encode("e"))
 print("---")
