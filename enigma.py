@@ -91,6 +91,7 @@ def encode(char):
 print("-------------------------")
 print("- Python Enigma - Pygma -")
 print("-------------------------")
+print(sys.version)
 print("")
 
 r1 = create_rotor(rotorSeed1)
