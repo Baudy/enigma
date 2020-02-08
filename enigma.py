@@ -37,19 +37,18 @@ def create_rotor(randSeed):
     This function returns a tuple of allowed characters,
     randomly distributed using the seed provided as an argument.
     """
-    random.seed(randSeed) # make sure the rotor setup can be reproduced
-    res = []
-    ret = {}
-    counter = 0
-    while len(res) < len(allowed_chars): # create a list with randomised integers
+    random.seed(randSeed) # this ensures the rotor setup can be reproduced
+    res1 = [] # a temporary list holding a randomised list of integers
+    res2 = [] # a temporary list containing the allowed_char for each integer in res1
+    ret = () # an empty tuple which we'll populate with the contents of the res2 list and then return
+    counter = 0 # an empty counter
+    while len(res1) < len(allowed_chars): # create a list with randomised integers
         x = random.randint(0,len(allowed_chars)-1)
-        if x not in res: # only add to the list if the value isn't already there
-            res.append(x)
-    for i in res: # for all of the 64 integrs, replace them with the allowed characters
-        ret[allowed_chars[counter]] = allowed_chars[res[i]]
-        print(allowed_chars[counter] + " --- " + allowed_chars[res[i]])
-        print(ret)
-        counter += 1 # this needs to return pairs where the key is in the order of the allowed_chars
+        if x not in res1: # only add to the list if the value isn't already there
+            res1.append(x)
+    for i in res1: # for all of the 64 integrs in res1, replace them with the allowed characters into res2
+        res2.append(allowed_chars.get(i))
+    ret = tuple(res2) # flip the list res2 into a tuple called ret
     return ret
 
 def create_reflector(randSeed):
