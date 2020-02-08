@@ -70,16 +70,38 @@ def create_reflector(randSeed):
 def reflect(reflector, char): # returns the reflected character
     return reflector.get(char)
 
+def find_key(input_dict, value):
+    return input_dict.keys()[input_dict.values().index(value)]
+
+def encode(char):
+    n = find_key(allowed_chars, char)
+    a = r1[n]
+    n = r2.index(a)
+    a = r3[n]
+    a = reflector.get(a)
+    n = r3.index(a)
+    a = r2[n]
+    n = r1.index(a)
+    a = allowed_chars[n]
+    # I'll need to come back here and build in rotation calculations...
+    # ...but not today!
+    return a
+
 
 print("-------------------------")
 print("- Python Enigma - Pygma -")
 print("-------------------------")
 print("")
 
-print(create_rotor(rotorSeed1))
-print(create_rotor(rotorSeed2))
-print(create_rotor(rotorSeed3))
-print("---")
-print(create_reflector(reflectorSeed1))
+r1 = create_rotor(rotorSeed1)
+r2 = create_rotor(rotorSeed2)
+r3 = create_rotor(rotorSeed3)
+reflector = create_reflector(reflectorSeed1)
 
-x = create_reflector(reflectorSeed1)
+print(r1)
+print(r2)
+print(r3)
+print("---")
+print(encode("7"))
+print(encode("K"))
+print("---")
